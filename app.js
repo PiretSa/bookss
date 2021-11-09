@@ -52,10 +52,21 @@ function addBook(event){
     booksList.appendChild(tr);
 
     // save book
-    //addBookToLocalStorage(book);
+    addBookToLocalStorage(book);
     titleInput.value = '';
     authorInput.value = '';
     isbnInput.value = '';
 
     event.preventDefault();
+}
+
+function addBookToLocalStorage(book){
+    let books;
+    if(localStorage.getItem('books') === null){
+        books = [];
+    } else {
+        books = JSON.parse(localStorage.getItem('books'));
+    }
+    books.push(book);
+    localStorage.setItem('books', JSON.stringify(books));
 }
