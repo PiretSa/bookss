@@ -5,7 +5,47 @@ const booksList = document.querySelector('#books-list');
 // events
 form.addEventListener('submit', addBook);
 booksList.addEventListener('click', deleteBook);
-//document.addEventListener('DOMContentLoaded', getBooksFromLocalStorage);
+document.addEventListener('DOMContentLoaded', getBooksFromLocalStorage);
+
+function getBooksFromLocalStorage(){
+    let books;
+    if(localStorage.getItem('books') === null){
+        books = [];
+    } else {
+        books = JSON.parse(localStorage.getItem('books'));
+    }
+    for(let i = 0; i < books.length; i++){
+        let book = books[i];
+        // create <tr> element
+        const tr = document.createElement('tr');
+        for(let i = 0; i < book.length; i++){
+            // create <td> element
+            let td = document.createElement('td');
+            // create text element
+            let text = document.createTextNode(book[i]);
+            // add text to <td>
+            td.appendChild(text);
+            // add td to tr
+            tr.appendChild(td);// add td to tr
+            tr.appendChild(td);
+        }
+        // X link
+        // create <td> element
+        td = document.createElement('td');
+        // create <a> element
+        const link = document.createElement('a');
+        // set href atribute to <a>
+        link.setAttribute('href', '#');
+        // add text content to <a>
+        link.appendChild(document.createTextNode('X'));
+        // add <a> to <li>
+        td.appendChild(link);
+        // add td to tr
+        tr.appendChild(td);
+        // add tr to tbody
+        booksList.appendChild(tr);
+    }
+}
 
 function deleteBook(event){
     if(event.target.textContent === 'X'){
