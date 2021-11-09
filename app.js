@@ -1,57 +1,71 @@
-const form = document.querySelector("form");
+// event elements
+const form = document.querySelector('form');
+const booksList = document.querySelector('#books-list');
 
-const table = document.querySelector("table");
-
+// events
 form.addEventListener('submit', addBook);
-table.addEventListener('click', deleteBook);
+//booksList.addEventListener('click', deleteBook);
+//document.addEventListener('DOMContentLoaded', getBooksFromLocalStorage);
 
 function addBook(event){
-    const titleInput = document.querySelector('#title').value;
-    const authorInput = document.querySelector('#author').value;
-    const isbnInput = document.querySelector('#isbn').value;
+    // get form input data
+    const titleInput = document.querySelector('#title');
+    const authorInput = document.querySelector('#author');
+    const isbnInput = document.querySelector('#isbn');
 
-    if(titleInput === "" && authorInput === ""&& isbnInput === ""){
-        event.preventDefault();
-        window.alert("Väljad ei saa tühjad olla!")
-    }else{
+    let title = titleInput.value;
+    let author = authorInput.value;
+    let isbn = isbnInput.value;
 
-        const tr = document.createElement("tr");
+    // create <tr> element
+    const tr = document.createElement('tr');
+    // title
+    // create <td> element
+    let td = document.createElement('td');
+    // create text element
+    let text = document.createTextNode(title);
+    // add text to <td>
+    td.appendChild(text);
+    // add td to tr
+    tr.appendChild(td);
+    // author
+    // create <td> element
+    td = document.createElement('td');
+    // create text element
+    text = document.createTextNode(author);
+    // add text to <td>
+    td.appendChild(text);
+    // add td to tr
+    tr.appendChild(td);
+    // isbn
+    // create <td> element
+    td = document.createElement('td');
+    // create text element
+    text = document.createTextNode(isbn);
+    // add text to <td>
+    td.appendChild(text);
+    // add td to tr
+    tr.appendChild(td);
+    // X link
+    // create <td> element
+    td = document.createElement('td');
+    // create <a> element
+    const link = document.createElement('a');
+    // set href atribute to <a>
+    link.setAttribute('href', '#');
+    // add text content to <a>
+    link.appendChild(document.createTextNode('X'));
+    // add <a> to <li>
+    td.appendChild(link);
+    // add td to tr
+    tr.appendChild(td);
+    // add tr to tbody
+    booksList.appendChild(tr);
+    // save task
+    //addTaskToLocalStorage(task);
+    titleInput.value = '';
+    authorInput.value = '';
+    isbnInput.value = '';
 
-        const tableTitle = document.createElement("td");
-        const tableAuthor = document.createElement("td");
-        const tableIsbn = document.createElement("td");
-        const tableRowDelete = document.createElement("td");
-
-        const delAnchor = document.createElement("a");
-        delAnchor.setAttribute("href", "#");
-        delAnchor.setAttribute("style", "float:right;");
-        delAnchor.appendChild(document.createTextNode("X"));
-
-
-        tableTitle.appendChild(document.createTextNode(titleInput));
-        tableAuthor.appendChild(document.createTextNode(authorInput));
-        tableIsbn.appendChild(document.createTextNode(isbnInput));
-        tableRowDelete.appendChild(delAnchor);
-
-        tr.appendChild(tableTitle);
-        tr.appendChild(tableAuthor);
-        tr.appendChild(tableIsbn);
-        tr.appendChild(tableRowDelete);
-
-        const tbody = document.querySelector("tbody");
-        tbody.appendChild(tr);
-
-        document.querySelector('#title').value = "";
-        document.querySelector('#author').value = "";
-        document.querySelector('#isbn').value = "";
-
-        event.preventDefault()
-    }
-}
-
-function deleteBook(event){
-    const tbody = document.querySelector("tbody");
-    if(event.target.textContent === "X"){
-        tbody.removeChild(event.target.parentElement.parentElement);
-    }
+    event.preventDefault();
 }
